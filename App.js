@@ -19,6 +19,12 @@ import Toolbar from './app/Navigation/Toolbar';
 import AppNavigation from './app/Navigation/AppNavigation';
 import { bgStatusBar, bgDrawer } from './app/global.styles';
 
+// ID-1 - task -run even in foreground or background
+import BackgroundTimer from 'react-native-background-timer';
+import PushController from './app/Views/PushController';
+import PushNotification from 'react-native-push-notification';
+
+
 let store = createStore(reducer);
 /* getDrawerWidth       Default drawer width is screen width - header width
 * https://material.io/guidelines/patterns/navigation-drawer.html
@@ -89,6 +95,8 @@ export default class App extends Component {
         </Provider>
         {/* common notification component */}
         <DropdownAlert ref={ref => global.dropDownAlertRef = ref}  closeInterval={2000} tapToCloseEnabled={true} />
+
+        
       </View>
     );
   }
@@ -100,3 +108,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
 });
+
+// code pratice: run job event 5 second and send local push notification and stop it after 15 second
+var interval = 1;
+// Start a timer that runs continuous after X milliseconds
+const intervalId = BackgroundTimer.setInterval(() => {
+	// this will be executed every 200 ms
+	// even when app is the the background
+  console.log('tic');
+  PushNotification.localNotificationSchedule({
+      message: `Notifcation - ${interval}`,
+      date: new Date()
+  });
+  if(interval === 3) {
+    // Cancel the timer when you are done with it
+    BackgroundTimer.clearInterval(intervalId);
+  }
+  interval += 1;
+}, 5000);
