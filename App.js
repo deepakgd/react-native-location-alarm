@@ -19,7 +19,7 @@ import Toolbar from './app/Navigation/Toolbar';
 import AppNavigation from './app/Navigation/AppNavigation';
 import { bgStatusBar, bgDrawer } from './app/global.styles';
 
-// ID-1 - task -run even in foreground or background
+// ID-1 - task -run even in foreground or background but not work if app killed
 import BackgroundTimer from 'react-native-background-timer';
 import PushController from './app/Views/PushController';
 import PushNotification from 'react-native-push-notification';
@@ -96,7 +96,8 @@ export default class App extends Component {
         {/* common notification component */}
         <DropdownAlert ref={ref => global.dropDownAlertRef = ref}  closeInterval={2000} tapToCloseEnabled={true} />
 
-        
+        {/* ID-1 */}
+        <PushController />
       </View>
     );
   }
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
   },
 });
 
-// code pratice: run job event 5 second and send local push notification and stop it after 15 second
+// ID-1 code pratice: run job event 5 second and send local push notification and stop it after 15 second
 var interval = 1;
 // Start a timer that runs continuous after X milliseconds
 const intervalId = BackgroundTimer.setInterval(() => {
