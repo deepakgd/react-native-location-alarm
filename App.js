@@ -7,7 +7,8 @@ import {
   StatusBar,
   DrawerLayoutAndroid, 
   Alert,
-  Text
+  Text,
+  PermissionsAndroid
 } from 'react-native';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -58,13 +59,45 @@ export default class App extends Component {
     this.state = {
       activities: []
     }
+
+    this.callLocation.bind(this);
+    this.requestLocationPermission.bind(this);
   }
  
   async componentDidMount() {
     store.dispatch(setNavigator(this.navigator.current));
 
-   
+    //Checking for the permission just after component loaded
+    if(Platform.OS === 'ios'){
+        this.callLocation();
+    }else{
+        this.requestLocationPermission();
+    }    
 
+   
+  }
+
+  async requestLocationPermission() {
+    try {
+        const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,{
+            'title': 'Location Access Required',
+            'message': 'This App needs to Access your location'
+        }
+        )
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        //To Check, If Permission is granted
+        this.callLocation();
+        } else {
+          alert("Permission Denied");
+        }
+    } catch (err) {
+        alert("err",err);
+        console.log(err)
+    }
+  }
+
+  async callLocation(){
     // BackgroundTaskController.init();
 
     // get already saved locations

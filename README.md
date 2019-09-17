@@ -5,7 +5,7 @@
 - Run `yarn install`
 - Run `react-native link`
 - Run this command in the android/app/ directory to generate the debug keystore file `keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000`
-- Update API key in Androidmanifest.xml file for google map
+- Paste secrets.xml file inside android/app/src/main/res/values - this contains secrete variable such as Google Map API key etc.,
 
 ## Commands
 

@@ -40,7 +40,7 @@
 
       <!-- google map -->
       <meta-data android:name="com.google.android.geo.API_KEY"
-        android:value="${APIKEY}"/>
+        android:value="@string/google_api_key"/>
 
 
       <!-- local notification start -->
