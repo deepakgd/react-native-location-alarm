@@ -40,7 +40,7 @@
 
       <!-- google map -->
       <meta-data android:name="com.google.android.geo.API_KEY"
-        android:value="${APIKEY}"/>
+        android:value="AIzaSyA6QFoHsNE_hK1maghJujxCoAK5tygIMCc"/>
 
 
       <!-- local notification start -->
@@ -59,7 +59,7 @@
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="${applicationId}" />
+                <category android:name="com.locationalarm" />
             </intent-filter>
         </receiver>
         <!-- < Only if you're using GCM or localNotificationSchedule() > -->
